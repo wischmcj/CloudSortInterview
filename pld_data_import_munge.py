@@ -16,7 +16,7 @@ def write(df,file):
     
     f.close()
 
-bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=100000)
+bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=1000)
 
 bie_pld1
 
@@ -72,6 +72,8 @@ pld_summary = bie_pld1.groupby(["OriginZip", "DestinationZip"]).agg(
 #print("Display summarized data")
 print(pld_summary.head())     
 
+pld_summary["orders_per_day"] = pld_summary["num_orders"]/30
+
 write(pld_summary,'./cloudsort_bie_interview_summary.csv')
 
 
@@ -84,7 +86,9 @@ pld_summary_state = bie_pld1.groupby(["orig_state", "dest_state"]).agg(
      min_volume = ('Volume','min'),
      ).reset_index()
 
-print(pld_summary.head())     
+print(pld_summary.head())  
+
+pld_summary_state["orders_per_day"] = pld_summary_state["num_orders"]/30
 
 write(pld_summary,'./cloudsort_bie_interview_summary_state.csv')
 
