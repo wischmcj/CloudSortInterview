@@ -15,7 +15,9 @@ def rad(x):
   return x * math.pi / 180.0;
 
 
-def getHaversineDistance(p1, p2):
+def getHaversineDistance(zip1, zip2):
+  p1 = get_lat_lon(zip1)
+  p2 = get_lat_lon(zip2)
   R = 6378137; # Earth’s mean radius in meter
   dLat = rad(p2[0] - p1[0]);
   dLong = rad(p2[1] - p1[1]);
@@ -27,11 +29,3 @@ def getHaversineDistance(p1, p2):
   return d # // returns the distance in meter
 def Meters2Miles(meters):
     return meters * 0.000621371
-
-zip1 = input("Enter Zip1")
-p1 = get_lat_lon(zip1)
-zip2 = input("Enter Zip2")
-p2 = get_lat_lon(zip2)
-dist_meters = getHaversineDistance(p1,p2)
-dist_miles = Meters2Miles(dist_meters)
-print("There are about %f miles between zipcodes %s and %s"%(dist_miles,zip1,zip2))

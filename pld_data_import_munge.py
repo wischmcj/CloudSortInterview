@@ -28,7 +28,7 @@ def write(df,file):
     df.to_csv(file, encoding='utf-8', index=False)
     f.close()
 
-bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=100000)
+bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=10000)
 
 bie_pld1
 
