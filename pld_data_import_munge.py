@@ -9,14 +9,26 @@ from pyvis.network import Network
 
 from uszipcode import SearchEngine, SimpleZipcode, ComprehensiveZipcode
 
+def get_city(zip):
+    try:
+        search = SearchEngine()
+        return search.by_zipcode(int(zip)).major_city
+    except AttributeError:
+        return "Not Found"
+
+def get_state(zip):
+    try:
+        search = SearchEngine()
+        return search.by_zipcode(int(zip)).state
+    except AttributeError:
+        return "Not Found"
 
 def write(df,file):
     f = open(file, 'w')
     df.to_csv(file, encoding='utf-8', index=False)
-    
     f.close()
 
-bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=1000)
+bie_pld1 = pd.read_csv("./cloudsort_bie_interview_pld1.csv", nrows=100000)
 
 bie_pld1
 
@@ -37,19 +49,6 @@ size_stats =bie_pld1[["Length", "Width", "Height", "Volume", "WeightOunces"]].de
 
 bie_pld1["orig_and_dest"] = str(bie_pld1["OriginZip"]) + str(bie_pld1["DestinationZip"])
 
-def get_city(zip):
-    try:
-        search = SearchEngine()
-        return search.by_zipcode(int(zip)).major_city
-    except AttributeError:
-        return "Not Found"
-
-def get_state(zip):
-    try:
-        search = SearchEngine()
-        return search.by_zipcode(int(zip)).state
-    except AttributeError:
-        return "Not Found"
 
 bie_pld1["orig_city"]= bie_pld1["OriginZip"].apply(np.vectorize(get_city))
 bie_pld1["dest_city"]= bie_pld1["DestinationZip"].apply(np.vectorize(get_city))
@@ -70,9 +69,9 @@ pld_summary = bie_pld1.groupby(["OriginZip", "DestinationZip"]).agg(
      ).reset_index()
 
 #print("Display summarized data")
-print(pld_summary.head())     
 
-pld_summary["orders_per_day"] = pld_summary["num_orders"]/30
+pld_summary["orders_per_day"] = pld_summary["num_orders"]/30 # thirty days in sept 2022
+print(pld_summary.head())     
 
 write(pld_summary,'./cloudsort_bie_interview_summary.csv')
 
@@ -86,9 +85,10 @@ pld_summary_state = bie_pld1.groupby(["orig_state", "dest_state"]).agg(
      min_volume = ('Volume','min'),
      ).reset_index()
 
+
+pld_summary_state["orders_per_day"] = pld_summary_state["num_orders"]/30 # thirty days in sept 2022
 print(pld_summary.head())  
 
-pld_summary_state["orders_per_day"] = pld_summary_state["num_orders"]/30
 
 write(pld_summary,'./cloudsort_bie_interview_summary_state.csv')
 
