@@ -1,6 +1,5 @@
 <h1>CloudSortInterview</h1>
 
-# markdown ref https://en.wikipedia.org/wiki/Markdown
 
 Exploring different options to visualize PLD data for network optimization 
 
