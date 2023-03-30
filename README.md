@@ -14,6 +14,7 @@ Code for Collin Wischmeyer's Code Interview
   1. **FauxProdCode:** contains the pseudo code to demonstrate how a resuable network optiization app might look like 
 
 <h3>Approach</h3>
+
 - Enrich Zip code information with prebuilt library (https://uszipcode.readthedocs.io/uszipcode/search.html#uszipcode.search.SearchEngine.by_population_density)
      - Obtain state and city information for readability and sementation 
 
