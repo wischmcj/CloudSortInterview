@@ -79,6 +79,7 @@ def getHaversineDistance(p1, p2):
   c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
   d = R * c #
   return d # // returns the distance in meter
+
 def Meters2Miles(meters):
     return meters * 0.000621371
 
